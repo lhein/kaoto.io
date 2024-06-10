@@ -1,5 +1,8 @@
 name: Hugo build
 
+env:
+  WC_HUGO_VERSION: '0.126.3'
+
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
@@ -11,6 +14,12 @@ on:
   #nightly to keep statistics updated
   schedule:
     - cron:  '12 0 * * *'
+
+# Provide permission to clone the repo and deploy it to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   hugo:
@@ -26,36 +35,6 @@ jobs:
           path: 'tmp/kaoto'
           fetch-depth: '0'
 
-      - name: Checkout vscode-kaoto
-        uses: actions/checkout@v4
-        with:
-          repository: 'KaotoIO/vscode-kaoto'
-          path: 'tmp/vscode-kaoto'
-          fetch-depth: '0'
-
-      - name: Checkout Backend
-        uses: actions/checkout@v4
-        with:
-          repository: 'KaotoIO/kaoto-backend'
-          path: 'tmp/kaoto-backend'
-          fetch-depth: '0'
-        
-      - name: Checkout Frontend
-        uses: actions/checkout@v4
-        with:
-          repository: 'KaotoIO/kaoto-ui'
-          path: 'tmp/kaoto-ui'
-          fetch-depth: '0'
-        
-      - name: Generate Contributors
-        run:  ./getGitData.sh 
-        
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-          
       - name: Install Python dependencies
         run: pip3 install PyGithub
           
@@ -65,17 +44,41 @@ jobs:
           username: ${{ secrets.API_USER }}
           password: ${{ secrets.API_PASSWORD }}
           
-      - name: Run Hugo
-        uses: crazy-max/ghaction-hugo@v3
-        if: always()
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
         with:
-          version: latest
-          extended: false
-          args: --cleanDestinationDir --minify --verbose
-          
+          hugo-version: ${{ env.WC_HUGO_VERSION }}
+          extended: true
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/hugo_cache_runner/
+          key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.mod') }}
+          restore-keys: |
+            ${{ runner.os }}-hugomod-
+
       - name: Setup CNAME correctly
         if: always()
         run:  cp CNAME public/CNAME
+      
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+    
+      - name: Build with Hugo
+        env:
+          HUGO_ENVIRONMENT: production
+        run: |
+          echo "Hugo Cache Dir: $(hugo config | grep cachedir)"
+          hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+    
+      - name: Generate Pagefind search index
+        run: npx pagefind --source "public"
+    
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+      
       -
         name: Deploy to GitHub Pages
         if: success() && github.event_name != 'pull_request'
