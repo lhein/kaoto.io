@@ -78,7 +78,7 @@ You can drop nodes on different types of targets:
 
 ## Copy and Paste Nodes
 
-Copy and paste functionality allows you to duplicate nodes within the same route or across different routes while preserving their complete configuration. The paste options are context-aware, appearing only where the copied node can be validly inserted.
+Copy and paste functionality allows you to duplicate nodes within the same route or across different routes while preserving their complete configuration. Copied nodes are placed on the clipboard as **YAML**, so you can inspect, edit, or share them externally — and paste YAML from documentation, or a text editor directly onto the canvas. Paste options are context-aware and only appear where the copied node can be validly inserted.
 
 **How it works:**
 - Right-click on any node to open the context menu
@@ -114,11 +114,12 @@ The paste option label varies depending on where you're pasting. You may see up 
 - Duplicate commonly used processing steps across multiple routes
 - Quickly replicate complex node configurations without manual reconfiguration
 - Build similar routes faster by copying and modifying existing nodes
-- Rebuild complete routes from scratch by copying and pasting them on the canvas (or simply duplicate the route)
+- Rebuild complete routes by copying and pasting them on the canvas, or use **Duplicate** for a single-step copy
+- Extract and reuse entire sections by copying valid Camel YAML from documentation or external editors
 - Copy error handling blocks (like [`doCatch`](https://camel.apache.org/components/latest/eips/doCatch-eip.html)) to standardize exception handling across routes
 
 > [!TIP]
-> Copied nodes retain all their property configurations, making it easy to create consistent processing patterns across your integrations.
+> Copied nodes are serialized as YAML and retain all property configurations. You can inspect or edit the clipboard content in any text editor before pasting it back, making it easy to create and share consistent patterns across your integrations.
 
 ---
 
