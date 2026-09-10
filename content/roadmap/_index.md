@@ -7,6 +7,20 @@ h1 {
     text-align: center;
 }
 
+.roadmap-badge {
+    display: inline-block;
+    font-size: 0.6em;
+    font-weight: bold;
+    color: #fff;
+    background: rgb(0, 121, 60);
+    border-radius: 4px;
+    padding: 1px 6px;
+    vertical-align: middle;
+    margin-left: 8px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
 .roadmap-container {
     display: flex;
     flex-direction: column;
@@ -63,9 +77,10 @@ h1 {
 }
 
 .roadmap-card .content h3 {
-    margin: 0;
+    margin: 0 !important;
     font-size: 1.2em;
     font-weight: bold;
+    line-height: 1.4;
 }
 
 .roadmap-card .content p {
@@ -177,6 +192,14 @@ This roadmap is subject to change.
             <div class="delivery-time">2026</div>
         </div>
     </div>
+    <div class="roadmap-card">
+        <div class="icon" style="background-image: url('./images/camel-logo.svg');"></div>
+        <div class="content">
+            <h3>Camel Infra Support <span class="roadmap-badge">FINAL</span></h3>
+            <p>Enable users to leverage the Camel Infra features to test their integrations.</p>
+            <div class="delivery-time">Q4 / 2026</div>
+        </div>
+    </div>
     <div class="roadmap-card wip">
         <div class="icon" style="background-image: url('./images/camel-logo.svg');"></div>
         <div class="content">
@@ -186,9 +209,9 @@ This roadmap is subject to change.
         </div>
     </div>
     <div class="roadmap-card wip">
-        <div class="icon" style="background-image: url('./images/camel-logo.svg');"></div>
+        <div class="icon" style="background-image: url('./images/lab.png');"></div>
         <div class="content">
-            <h3>Camel Infra Support</h3>
+            <h3>Camel Infra Support <span class="roadmap-badge">PREVIEW</span></h3>
             <p>Enable users to leverage the Camel Infra features to test their integrations.</p>
             <div class="delivery-time">Q3 / 2026</div>
         </div>
@@ -236,7 +259,7 @@ This roadmap is subject to change.
     <div class="roadmap-card completed">
         <div class="icon" style="background-image: url('./images/stop.png');"></div>
         <div class="content">
-            <h3>Drag & Drop (Final)</h3>
+            <h3>Drag & Drop <span class="roadmap-badge">FINAL</span></h3>
             <p>Enable users to quickly move steps on the canvas with Drag & Drop</p>
             <div class="delivery-time">Q3 / 2025</div>
         </div>
@@ -266,17 +289,17 @@ This roadmap is subject to change.
         </div>
     </div>
     <div class="roadmap-card completed">
-        <div class="icon" style="background-image: url('./images/stop.png');"></div>
+        <div class="icon" style="background-image: url('./images/lab.png');"></div>
         <div class="content">
-            <h3>Drag & Drop (Tech Preview)</h3>
+            <h3>Drag & Drop <span class="roadmap-badge">PREVIEW</span></h3>
             <p>Initial support of Drag & Drop in the editor</p>
             <div class="delivery-time">Q1 / 2025</div>
         </div>
     </div>
     <div class="roadmap-card completed">
-        <div class="icon" style="background-image: url('./images/datamapper.png');"></div>
+        <div class="icon" style="background-image: url('./images/lab.png');"></div>
         <div class="content">
-            <h3>DataMapper (Tech Preview)</h3>
+            <h3>DataMapper <span class="roadmap-badge">PREVIEW</span></h3>
             <p>Initial release of a visual datamapper supporting XML mappings</p>
             <div class="delivery-time">Q4 / 2024</div>
         </div>
